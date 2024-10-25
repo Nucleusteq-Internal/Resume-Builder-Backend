@@ -44,23 +44,6 @@ public class ProfileServiceImpl implements ProfileService {
         return message;}
 
 
-  /*  @Override
-    public CommonResponseDto createProfile(ProfileDto profileDto) {
-
-        Profile profile = new Profile();
-        profile.setUserId(profileDto.getUserId());
-        profile.setProfileName(profileDto.getProfileName());
-        profile.setContactNo(profileDto.getContactNo());
-        profile.setObjective(profileDto.getObjective());
-        profile.setProfileData(profileDto.getProfileData());
-        profile.setCreatedAt(LocalDateTime.now());// Set ProfileDataDto
-        profileRepository.save(profile);
-        CommonResponseDto message=new CommonResponseDto();
-        message.setMessage(ProfileConstants.PROFILE_CREATED_SUCCESSFULLY);
-        return message;
-
-    }*/
-
     @Override
     public CommonResponseDto updateProfile(Long id, @Valid ProfileUpdateDto profileDto) {
         Profile profile = profileRepository.findById(id)
@@ -133,7 +116,7 @@ public class ProfileServiceImpl implements ProfileService {
         return responseDto;
     }
 
-    @PostMapping
+
     public JobTitleResponseDto createJobTitle(@RequestBody JobTitleDto jobTitleDto) {
         //JobTitle jobTitle = new JobTitle();
 
@@ -146,23 +129,13 @@ public class ProfileServiceImpl implements ProfileService {
 
     }
 
-    @Override
-    public List<String> getAllCollegeNames()
-    {
-        List<String> collegeNames=new ArrayList<>();
-        Profile profile=new Profile();
-        for(EducationDto education:profile.getProfileData().getEducation())
-        {
-            collegeNames.add(education.getCollegeName());
-        }
-
-        return collegeNames;
-
+    public List<String> getAllCollegeNames() {
+        return profileRepository.findAll().stream()
+                .filter(profile -> profile.getProfileData() != null)
+                .flatMap(profile -> profile.getProfileData().getEducation().stream())
+                .map(EducationDto::getCollegeName)
+                .collect(Collectors.toList());
     }
-
-
-
-
 
 
 }
