@@ -9,7 +9,7 @@ public class ProfileDataDto {
 
 
     @NotEmpty(message = "Professional summary cannot be empty")
-    private List<@NotBlank(message = "Professional summary can not be null") String> professionalSummary;
+    private String professionalSummary;
 
     @NotEmpty(message = "Certificates cannot be empty")
     private List<@NotBlank(message = "Certificates cannot be blank") String> certificates;
@@ -25,11 +25,11 @@ public class ProfileDataDto {
     @NotEmpty(message = "Education cannot be empty")
     private List<EducationDto> education;
 
-    public List<String> getProfessionalSummary() {
+    public String getProfessionalSummary() {
         return professionalSummary;
     }
 
-    public void setProfessionalSummary(List<String> professionalSummary) {
+    public void setProfessionalSummary(String professionalSummary) {
         this.professionalSummary = professionalSummary;
     }
 
@@ -66,7 +66,6 @@ public class ProfileDataDto {
         this.education = education;
     }
 }
-
 
 
 

@@ -1,6 +1,7 @@
 package com.project.ResumeBuilder.dtos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,15 +18,17 @@ public class ProfessionalExperienceDto {
     private String projectName;
 
 
-    private LocalDate startDate;
+    @Pattern(regexp = "\\d{4}-\\d{2}", message = "Start date must be in YYYY-MM format")
+    private String startDate;
 
-    private LocalDate endDate;
+    @Pattern(regexp = "\\d{4}-\\d{2}", message = "End date must be in YYYY-MM format")
+    private String endDate;
 
     @NotEmpty(message = "TechStack name cannot be empty")
-    private List<@NotBlank(message = "Tech cannot be blank")String> techStack;
-
+    private String techStack;
     @NotEmpty(message = "Details cannot be empty")
-    private List<@NotBlank(message = "Details cannot be blank")String> details;
+    private String details;
+
 
     public String getJobTitle() {
         return jobTitle;
@@ -51,36 +54,37 @@ public class ProfessionalExperienceDto {
         this.projectName = projectName;
     }
 
-    public  LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public  LocalDate getEndDate() {
+    public  String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public List<String> getTechStack() {
+    public String getTechStack() {
         return techStack;
     }
 
-    public void setTechStack(List<String> techStack) {
+    public void setTechStack(String techStack) {
         this.techStack = techStack;
     }
 
-    public List<String> getDetails() {
+    public String getDetails() {
         return details;
     }
 
-    public void setDetails(List<String> details) {
+    public void setDetails(String details) {
         this.details = details;
     }
-}
 
+
+}

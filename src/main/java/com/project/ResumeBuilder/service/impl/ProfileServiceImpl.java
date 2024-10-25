@@ -1,19 +1,20 @@
 package com.project.ResumeBuilder.service.impl;
 import com.project.ResumeBuilder.constants.ProfileConstants;
-import com.project.ResumeBuilder.dtos.CommonResponseDto;
-import com.project.ResumeBuilder.dtos.ProfileDto;
-import com.project.ResumeBuilder.dtos.ProfileResponseDto;
-import com.project.ResumeBuilder.dtos.ProfileUpdateDto;
+import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.entities.Profile;
 import com.project.ResumeBuilder.exception.NotFoundException;
 import com.project.ResumeBuilder.repository.ProfileRepository;
 import com.project.ResumeBuilder.service.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,8 +27,11 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileRepository profileRepository;
 
     @Override
-    public CommonResponseDto createProfile(@Valid ProfileDto profileDto) {
-        Profile profile = new Profile();
+    public CommonResponseDto createProfile(Long id, ProfileDto profileDto) {
+
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
+
         profile.setUserId(profileDto.getUserId());
         profile.setProfileName(profileDto.getProfileName());
         profile.setContactNo(profileDto.getContactNo());
@@ -37,9 +41,8 @@ public class ProfileServiceImpl implements ProfileService {
         profileRepository.save(profile);
         CommonResponseDto message=new CommonResponseDto();
         message.setMessage(ProfileConstants.PROFILE_CREATED_SUCCESSFULLY);
-        return message;
+        return message;}
 
-    }
 
     @Override
     public CommonResponseDto updateProfile(Long id, @Valid ProfileUpdateDto profileDto) {
@@ -82,16 +85,16 @@ public class ProfileServiceImpl implements ProfileService {
 
     }
     public List<ProfileResponseDto> getProfilesByUserId(Long userId) {
-      List<Profile> profiles = profileRepository.findAllByUserId(userId);
+        List<Profile> profiles = profileRepository.findAllByUserId(userId);
 
-      if (profiles.isEmpty()) {
-          throw new NotFoundException(ProfileConstants.USER_NOT_FOUND + userId);
-      }
+        if (profiles.isEmpty()) {
+            throw new NotFoundException(ProfileConstants.USER_NOT_FOUND + userId);
+        }
 
-      return profiles.stream()
-              .map(this::convertToResponseDto)
-              .collect(Collectors.toList());
-  }
+        return profiles.stream()
+                .map(this::convertToResponseDto)
+                .collect(Collectors.toList());
+    }
 
 
     public List<ProfileResponseDto> getAllProfiles() {
@@ -109,7 +112,29 @@ public class ProfileServiceImpl implements ProfileService {
         responseDto.setCreatedAt(profile.getCreatedAt());
         responseDto.setProfileData(profile.getProfileData());
         responseDto.setIsDeleted(profile.getIsDeleted());
+        responseDto.setJobTitle(profile.getJobTitle());
         return responseDto;
+    }
+
+
+    public JobTitleResponseDto createJobTitle(@RequestBody JobTitleDto jobTitleDto) {
+        //JobTitle jobTitle = new JobTitle();
+
+        Profile profile = new Profile();
+        profile.setJobTitle(jobTitleDto.getTitle());
+        profileRepository.save(profile);
+        JobTitleResponseDto jobTitle = new JobTitleResponseDto();
+        jobTitle.setId(profile.getId());
+        return jobTitle;
+
+    }
+
+    public List<String> getAllCollegeNames() {
+        return profileRepository.findAll().stream()
+                .filter(profile -> profile.getProfileData() != null)
+                .flatMap(profile -> profile.getProfileData().getEducation().stream())
+                .map(EducationDto::getCollegeName)
+                .collect(Collectors.toList());
     }
 
 

@@ -15,6 +15,7 @@ public class ProfileResponseDto {
     private String objective;
     private LocalDateTime createdAt;
     private Boolean isDeleted;
+    private String jobTitle;
     // private LocalDateTime updatedAt;
 
     @Valid
@@ -83,6 +84,13 @@ public class ProfileResponseDto {
     public void setIsDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
-}
 
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+}
 
