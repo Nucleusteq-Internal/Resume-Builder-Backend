@@ -69,19 +69,22 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public CommonResponseDto deleteProfile(Long profileId) {
+    public DeleteResponseDto deleteProfile(Long profileId) {
         Optional<Profile> profileOptional = profileRepository.findById(profileId);
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
             profile.setIsDeleted(true);
             profile.setDeletedAt(LocalDateTime.now());
             profileRepository.save(profile);
+
+            DeleteResponseDto response=new DeleteResponseDto();
+            response.setMessage(ProfileConstants.PROFILE_DELETED_SUCCESSFULLY);
+            response.setIsDeleted(profile.getIsDeleted());
+            return response;
         } else {
             throw new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + profileId);
         }
-        CommonResponseDto message=new CommonResponseDto();
-        message.setMessage(ProfileConstants.PROFILE_DELETED_SUCCESSFULLY);
-        return message;
+
 
     }
     public List<ProfileResponseDto> getProfilesByUserId(Long userId) {

@@ -38,8 +38,8 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}/delete")
-    public ResponseEntity<CommonResponseDto> deleteProfile(@PathVariable Long id) {
-        CommonResponseDto response=  profileService.deleteProfile(id);
+    public ResponseEntity<DeleteResponseDto> deleteProfile(@PathVariable Long id) {
+        DeleteResponseDto response=  profileService.deleteProfile(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @Transactional
