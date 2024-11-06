@@ -14,7 +14,7 @@ public class UpdateUserInDTO {
 
     private String address;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
 
     @Pattern(
