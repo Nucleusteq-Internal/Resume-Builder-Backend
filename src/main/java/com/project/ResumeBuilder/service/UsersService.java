@@ -212,8 +212,9 @@ public class UsersService {
                 if (!encoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
                     throw new ResourceConflictException(ConstantMessage.CURRENT_PASSWORD_INCORRECT);
                 }
-
-                user.setPassword(encoder.encode(changePasswordDTO.getNewPassword()));
+                byte[] decodedBytes = Base64.getDecoder().decode(changePasswordDTO.getNewPassword());
+                String decodedPassword = new String(decodedBytes);
+                user.setPassword(encoder.encode(decodedPassword));
                 userRepository.save(user);
                 return ConstantMessage.PASSWORD_UPDATED_SUCCESSFULLY;
             } else {
