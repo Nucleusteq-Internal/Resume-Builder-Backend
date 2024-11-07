@@ -208,8 +208,9 @@ public class UsersService {
             Optional<Users> userOptional = userRepository.findById(userId);
             if (userOptional.isPresent()) {
                 Users user = userOptional.get();
-
-                if (!encoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
+                byte[] decodedBytesCurrentPassword = Base64.getDecoder().decode(changePasswordDTO.getNewPassword());
+                String decodedCurrentPassword = new String(decodedBytesCurrentPassword);
+                if (!encoder.matches(decodedCurrentPassword, user.getPassword())) {
                     throw new ResourceConflictException(ConstantMessage.CURRENT_PASSWORD_INCORRECT);
                 }
                 byte[] decodedBytes = Base64.getDecoder().decode(changePasswordDTO.getNewPassword());
