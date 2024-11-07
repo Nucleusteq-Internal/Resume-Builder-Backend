@@ -14,8 +14,7 @@ public class UpdateUserInDTO {
 
     private String address;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dob;
+    private String dob;
 
     @Pattern(
             regexp = "^[9876]\\d{" + (9) + "}$",
