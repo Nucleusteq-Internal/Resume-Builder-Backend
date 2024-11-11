@@ -15,7 +15,7 @@ public class RegisterInDTO {
     @Email
     @NotBlank(message = "Valid Email not found")
     @Pattern(
-            regexp = "^[\\w.%+-]+@gmail\\.com$",
+            regexp = "^[\\w.%+-]+@(gmail|nucluesteq)\\.com$",
             message = "Valid Email not found"
     )
     private String email;
