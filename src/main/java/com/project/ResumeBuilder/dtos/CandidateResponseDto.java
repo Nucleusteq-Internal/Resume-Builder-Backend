@@ -1,45 +1,23 @@
-package com.project.ResumeBuilder.entities;
-import com.project.ResumeBuilder.dtos.ProfileDataDto;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
+package com.project.ResumeBuilder.dtos;
+
+import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "candidate_profiles")
-public class CandidateProfile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CandidateResponseDto {
+
     private Long id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "contact_no")
     private String contactNo;
-
-    @Lob
-    @Basic(fetch = FetchType.EAGER)
-    @Column(name = "objective")
     private String objective;
-
-    @Type(JsonBinaryType.class)
-    @Column(name = "profile_data", columnDefinition = "jsonb")
-    private ProfileDataDto profileData; // Use ProfileDataDto instead of Map
-
-    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
+    private Boolean isDeleted;
+    // private LocalDateTime updatedAt;
 
-    @Column
-    private Boolean isDeleted = false;
-
-    @Column
-    private LocalDateTime deletedAt;
+    @Valid
+    private ProfileDataDto profileData;
 
 
     public Long getId() {
@@ -66,8 +44,6 @@ public class CandidateProfile {
         this.email = email;
     }
 
-
-
     public String getContactNo() {
         return contactNo;
     }
@@ -82,14 +58,6 @@ public class CandidateProfile {
 
     public void setObjective(String objective) {
         this.objective = objective;
-    }
-
-    public ProfileDataDto getProfileData() {
-        return profileData;
-    }
-
-    public void setProfileData(ProfileDataDto profileData) {
-        this.profileData = profileData;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -108,11 +76,11 @@ public class CandidateProfile {
         isDeleted = deleted;
     }
 
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
+    public @Valid ProfileDataDto getProfileData() {
+        return profileData;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setProfileData(@Valid ProfileDataDto profileData) {
+        this.profileData = profileData;
     }
 }

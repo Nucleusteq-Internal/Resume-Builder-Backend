@@ -1,10 +1,10 @@
 package com.project.ResumeBuilder.service;
 
-import com.project.ResumeBuilder.dtos.CandidateDto;
-import com.project.ResumeBuilder.dtos.CommonResponseDto;
-import com.project.ResumeBuilder.dtos.ProfileDto;
+import com.project.ResumeBuilder.dtos.*;
 
 public interface CandidateService {
 
-    CommonResponseDto createCandidateProfile(CandidateDto candidateDto);
+    CommonResponseDto createCandidateProfile(Long id,CandidateDto candidateDto);
+   /* CandidateResponseDto getCandidateProfileById(Long id);*/
+    NameResponseDto createName(NameDto nameDto);
 }

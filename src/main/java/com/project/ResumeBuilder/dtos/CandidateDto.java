@@ -11,9 +11,6 @@ public class CandidateDto {
     @Min(value = 1, message = "User ID must be greater than 0")
     private Long id;
 
-    @NotEmpty(message = "Profile name cannot be empty")
-    private String name;
-
     private String email;
 
     @NotEmpty(message = "Contact number cannot be empty")
@@ -24,14 +21,6 @@ public class CandidateDto {
 
     @Valid
     private ProfileDataDto profileData;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public  String getContactNo() {
         return contactNo;
@@ -70,7 +59,7 @@ public class CandidateDto {
     @Override
     public String toString() {
         return "ProfileDto{" +
-                ", Name='" + name + '\'' +
+
                 ", contactNo='" + contactNo + '\'' +
                 ", objective='" + objective + '\'' +
                 ", email='" + email + '\'' +
