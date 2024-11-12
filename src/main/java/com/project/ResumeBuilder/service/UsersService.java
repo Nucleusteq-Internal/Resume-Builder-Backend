@@ -49,6 +49,9 @@ public class UsersService {
                 throw new ResourceConflictException(ConstantMessage.USER_ALREADY_EXISTS);
             }
             UserRole role = UserRole.valueOf(registerInDTO.getRole());
+            byte[] decodedBytes = Base64.getDecoder().decode(registerInDTO.getPassword());
+            String decodedPassword = new String(decodedBytes);
+            registerInDTO.setPassword(decodedPassword);
             registerInDTO.setPassword(encoder.encode(registerInDTO.getPassword()));
             Users user = DtoConvertor.convertToEntity(registerInDTO);
             user.setRole(role);
@@ -66,9 +69,9 @@ public class UsersService {
     public LoginOutDTO login(LoginInDTO loginInDTO) {
 
         try {
-           /* byte[] decodedBytes = Base64.getDecoder().decode(loginInDTO.getPassword());
+            byte[] decodedBytes = Base64.getDecoder().decode(loginInDTO.getPassword());
             String decodedPassword = new String(decodedBytes);
-            loginInDTO.setPassword(decodedPassword); */
+            loginInDTO.setPassword(decodedPassword);
             Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(loginInDTO.getEmail(), loginInDTO.getPassword()));
             if (authentication.isAuthenticated()) {
                 Users user = userRepository.findByEmail(loginInDTO.getEmail());
