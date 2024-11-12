@@ -208,17 +208,33 @@ public class UsersService {
             Optional<Users> userOptional = userRepository.findById(userId);
             if (userOptional.isPresent()) {
                 Users user = userOptional.get();
-
-                if (!encoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
+                byte[] decodedBytesCurrentPassword = Base64.getDecoder().decode(changePasswordDTO.getCurrentPassword());
+                String decodedCurrentPassword = new String(decodedBytesCurrentPassword);
+                if (!encoder.matches(decodedCurrentPassword, user.getPassword())) {
                     throw new ResourceConflictException(ConstantMessage.CURRENT_PASSWORD_INCORRECT);
                 }
-
-                user.setPassword(encoder.encode(changePasswordDTO.getNewPassword()));
+                byte[] decodedNewPasswordBytes = Base64.getDecoder().decode(changePasswordDTO.getNewPassword());
+                String decodedNewPassword = new String(decodedNewPasswordBytes);
+                user.setPassword(encoder.encode(decodedNewPassword));
                 userRepository.save(user);
                 return ConstantMessage.PASSWORD_UPDATED_SUCCESSFULLY;
             } else {
                 throw new ResourceNotFoundException(ConstantMessage.USER_NOT_FOUND);
             }
+        } catch (ResourceNotFoundException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException(ConstantMessage.UNEXPECTED_ERROR_OCCURRED);
+        }
+    }
+
+    public List<EmployeeDetailDTO> getEmployees() {
+        try {
+            List<EmployeeDetailDTO> employeeDetailDTOS = userRepository.findEmployees();
+            if (employeeDetailDTOS.isEmpty()) {
+                throw new ResourceNotFoundException(ConstantMessage.USER_NOT_FOUND);
+            }
+            return userRepository.findEmployees();
         } catch (ResourceNotFoundException ex) {
             throw ex;
         } catch (Exception ex) {

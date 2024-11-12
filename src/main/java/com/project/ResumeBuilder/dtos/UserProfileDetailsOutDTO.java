@@ -10,7 +10,7 @@ public class UserProfileDetailsOutDTO {
 
     private String address;
 
-    private LocalDate dob;
+    private String dob;
 
     private String phone;
 
