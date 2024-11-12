@@ -114,7 +114,9 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileResponseDto convertToResponseDto(Profile profile) {
         ProfileResponseDto responseDto = new ProfileResponseDto();
         responseDto.setId(profile.getId());
-       // responseDto.setUserId(profile.getUserId());
+        if (profile.getUser() != null) {
+            responseDto.setUserId(profile.getUser().getUserId()); // Assuming `id` is the user ID field in Users
+        }
         responseDto.setProfileName(profile.getProfileName());
         responseDto.setContactNo(profile.getContactNo());
         responseDto.setObjective(profile.getObjective());

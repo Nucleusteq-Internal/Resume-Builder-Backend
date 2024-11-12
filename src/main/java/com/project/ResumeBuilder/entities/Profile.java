@@ -3,7 +3,6 @@ package com.project.ResumeBuilder.entities;
 
 import com.project.ResumeBuilder.dtos.ProfileDataDto;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 import org.hibernate.annotations.Type;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
