@@ -85,4 +85,10 @@ public class UserController {
         SuccessOutDTO successOutDTO = new SuccessOutDTO(response);
         return ResponseEntity.status(HttpStatus.OK).body(successOutDTO);
     }
+
+    @GetMapping("/employees")
+    public ResponseEntity<List<EmployeeDetailDTO>> getEmployees() {
+        List<EmployeeDetailDTO> employeeDetailDTOS = usersService.getEmployees();
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDetailDTOS);
+    }
 }

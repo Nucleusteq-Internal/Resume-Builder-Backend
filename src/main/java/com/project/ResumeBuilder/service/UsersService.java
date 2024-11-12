@@ -227,4 +227,18 @@ public class UsersService {
             throw new RuntimeException(ConstantMessage.UNEXPECTED_ERROR_OCCURRED);
         }
     }
+
+    public List<EmployeeDetailDTO> getEmployees() {
+        try {
+            List<EmployeeDetailDTO> employeeDetailDTOS = userRepository.findEmployees();
+            if (employeeDetailDTOS.isEmpty()) {
+                throw new ResourceNotFoundException(ConstantMessage.USER_NOT_FOUND);
+            }
+            return userRepository.findEmployees();
+        } catch (ResourceNotFoundException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException(ConstantMessage.UNEXPECTED_ERROR_OCCURRED);
+        }
+    }
 }
