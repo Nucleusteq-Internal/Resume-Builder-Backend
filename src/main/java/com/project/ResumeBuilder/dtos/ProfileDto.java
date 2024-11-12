@@ -10,7 +10,7 @@ public class ProfileDto {
 
     @NotNull(message = "User ID cannot be empty")
     @Min(value = 1, message = "User ID must be greater than 0")
-    private Integer userId;
+    private Long userId;
 
     @NotEmpty(message = "Profile name cannot be empty")
     private String profileName;
@@ -24,11 +24,11 @@ public class ProfileDto {
     @Valid
     private ProfileDataDto profileData;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class ProfileResponseDto {
 
     private Long id;
-    private Integer userId;
+    private Long userId;
     private String profileName;
     private String contactNo;
     private String objective;
@@ -29,11 +29,11 @@ public class ProfileResponseDto {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

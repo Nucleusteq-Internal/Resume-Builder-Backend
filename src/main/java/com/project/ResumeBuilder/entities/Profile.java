@@ -3,6 +3,7 @@ package com.project.ResumeBuilder.entities;
 
 import com.project.ResumeBuilder.dtos.ProfileDataDto;
 import jakarta.persistence.*;
+import org.apache.catalina.User;
 import org.hibernate.annotations.Type;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
@@ -16,8 +17,11 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Integer userId;
+  /*  @Column(name = "user_id")
+    private Long userId;*/
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")  // Referencing 'user_id' column in 'Users' entity
+  private Users user;
 
     @Column(name="jobTitle")
     private String jobTitle;
@@ -54,13 +58,21 @@ public class Profile {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    /* public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
-    }
+    }*/
 
     public String getJobTitle() {
         return jobTitle;

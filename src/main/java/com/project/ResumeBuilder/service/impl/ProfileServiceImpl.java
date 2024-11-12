@@ -2,10 +2,13 @@ package com.project.ResumeBuilder.service.impl;
 import com.project.ResumeBuilder.constants.ProfileConstants;
 import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.entities.Profile;
+import com.project.ResumeBuilder.entities.Users;
 import com.project.ResumeBuilder.exception.NotFoundException;
 import com.project.ResumeBuilder.repository.ProfileRepository;
+import com.project.ResumeBuilder.repository.UserRepository;
 import com.project.ResumeBuilder.service.ProfileService;
 import jakarta.validation.Valid;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,13 +29,16 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public CommonResponseDto createProfile(Long id, ProfileDto profileDto) {
 
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
 
-        profile.setUserId(profileDto.getUserId());
+        //profile.setUserId(profileDto.getUserId());
         profile.setProfileName(profileDto.getProfileName());
         profile.setContactNo(profileDto.getContactNo());
         profile.setObjective(profileDto.getObjective());
@@ -87,7 +93,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 
     }
-    public List<ProfileResponseDto> getProfilesByUserId(Long userId) {
+    /*public List<ProfileResponseDto> getProfilesByUserId(Long userId) {
       List<Profile> profiles = profileRepository.findAllByUserId(userId);
 
       if (profiles.isEmpty()) {
@@ -97,7 +103,7 @@ public class ProfileServiceImpl implements ProfileService {
       return profiles.stream()
               .map(this::convertToResponseDto)
               .collect(Collectors.toList());
-  }
+  }*/
 
 
     public List<ProfileResponseDto> getAllProfiles() {
@@ -108,7 +114,7 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileResponseDto convertToResponseDto(Profile profile) {
         ProfileResponseDto responseDto = new ProfileResponseDto();
         responseDto.setId(profile.getId());
-        responseDto.setUserId(profile.getUserId());
+       // responseDto.setUserId(profile.getUserId());
         responseDto.setProfileName(profile.getProfileName());
         responseDto.setContactNo(profile.getContactNo());
         responseDto.setObjective(profile.getObjective());
@@ -123,8 +129,15 @@ public class ProfileServiceImpl implements ProfileService {
     public JobTitleResponseDto createJobTitle(@RequestBody JobTitleDto jobTitleDto) {
         //JobTitle jobTitle = new JobTitle();
 
+        Optional<Users> userOptional = userRepository.findById(jobTitleDto.getUserId());
+        if (!userOptional.isPresent()) {
+            throw new NotFoundException("User not found with ID: " + jobTitleDto.getUserId());
+        }
+
+
         Profile profile = new Profile();
         profile.setJobTitle(jobTitleDto.getTitle());
+        profile.setUser(userOptional.get());
         profileRepository.save(profile);
         JobTitleResponseDto jobTitle = new JobTitleResponseDto();
         jobTitle.setId(profile.getId());
