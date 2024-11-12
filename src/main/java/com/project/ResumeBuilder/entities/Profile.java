@@ -17,8 +17,6 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-  /*  @Column(name = "user_id")
-    private Long userId;*/
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "user_id")  // Referencing 'user_id' column in 'Users' entity
   private Users user;

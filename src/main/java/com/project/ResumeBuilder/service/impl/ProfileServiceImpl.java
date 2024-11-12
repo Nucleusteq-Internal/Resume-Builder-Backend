@@ -93,7 +93,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 
     }
-    /*public List<ProfileResponseDto> getProfilesByUserId(Long userId) {
+    public List<ProfileResponseDto> getProfilesByUserId(Long userId) {
       List<Profile> profiles = profileRepository.findAllByUserId(userId);
 
       if (profiles.isEmpty()) {
@@ -103,7 +103,7 @@ public class ProfileServiceImpl implements ProfileService {
       return profiles.stream()
               .map(this::convertToResponseDto)
               .collect(Collectors.toList());
-  }*/
+  }
 
 
     public List<ProfileResponseDto> getAllProfiles() {

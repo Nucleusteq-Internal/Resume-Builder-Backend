@@ -14,7 +14,7 @@ public interface ProfileService {
     ProfileResponseDto getProfileById(Long id);
     DeleteResponseDto deleteProfile(Long profileId);
     List<ProfileResponseDto> getAllProfiles();
-   /* List<ProfileResponseDto> getProfilesByUserId(Long userId);*/
+   List<ProfileResponseDto> getProfilesByUserId(Long userId);
     JobTitleResponseDto createJobTitle(JobTitleDto jobTitleDto);
     List<String> getAllCollegeNames();
 

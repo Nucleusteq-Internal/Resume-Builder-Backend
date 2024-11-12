@@ -42,12 +42,12 @@ public class ProfileController {
         DeleteResponseDto response=  profileService.deleteProfile(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-  /*  @Transactional
+    @Transactional
     @GetMapping("/user/{userId}")
    public ResponseEntity<List<ProfileResponseDto>> getProfilesByUserId(@PathVariable Long userId) {
        List<ProfileResponseDto> profileResponse = profileService.getProfilesByUserId(userId);
        return new ResponseEntity<>(profileResponse, HttpStatus.OK);
-   }*/
+   }
     @Transactional
     @GetMapping("/getAllProfile")
     public ResponseEntity<List<ProfileResponseDto>> getAllProfiles() {
