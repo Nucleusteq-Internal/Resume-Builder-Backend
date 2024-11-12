@@ -1,6 +1,4 @@
 package com.project.ResumeBuilder.dtos;
-
-
 import jakarta.validation.constraints.NotEmpty;
 
 public class EducationDto {
@@ -13,6 +11,7 @@ public class EducationDto {
 
     @NotEmpty(message = "Duration cannot be empty")
     private String duration;
+
 
     public String getCourse() {
         return course;
@@ -37,5 +36,7 @@ public class EducationDto {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+
 }
 

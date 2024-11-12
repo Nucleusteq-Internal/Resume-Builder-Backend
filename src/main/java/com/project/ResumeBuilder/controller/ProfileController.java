@@ -2,7 +2,6 @@ package com.project.ResumeBuilder.controller;
 import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.service.ProfileService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,7 @@ public class ProfileController {
 
     @PutMapping("/create/{id}")
     public ResponseEntity<CommonResponseDto> createProfile(@PathVariable Long id,@RequestBody ProfileDto profileDto) {
+        System.out.println(profileDto);
         CommonResponseDto createdProfile = profileService.createProfile(id,profileDto);
         return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
     }

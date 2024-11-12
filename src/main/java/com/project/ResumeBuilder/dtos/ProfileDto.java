@@ -63,6 +63,17 @@ public class ProfileDto {
     public void setProfileData(ProfileDataDto profileData) {
         this.profileData = profileData;
     }
+
+    @Override
+    public String toString() {
+        return "ProfileDto{" +
+                "userId=" + userId +
+                ", profileName='" + profileName + '\'' +
+                ", contactNo='" + contactNo + '\'' +
+                ", objective='" + objective + '\'' +
+                ", profileData=" + profileData +
+                '}';
+    }
 }
 
 

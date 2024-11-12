@@ -12,7 +12,7 @@ public class ProfileDataDto {
     private String professionalSummary;
 
     @NotEmpty(message = "Certificates cannot be empty")
-    private List<@NotBlank(message = "Certificates cannot be blank") String> certificates;
+    private List<String> certificates;
 
     @Valid
     private TechnicalSkillsDto technicalSkills;
@@ -64,6 +64,18 @@ public class ProfileDataDto {
 
     public void setEducation(List<EducationDto> education) {
         this.education = education;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ProfileDataDto{" +
+                "professionalSummary='" + professionalSummary + '\'' +
+                ", certificates=" + certificates +
+                ", technicalSkills=" + technicalSkills +
+                ", professionalExperience=" + professionalExperience +
+                ", education=" + education +
+                '}';
     }
 }
 

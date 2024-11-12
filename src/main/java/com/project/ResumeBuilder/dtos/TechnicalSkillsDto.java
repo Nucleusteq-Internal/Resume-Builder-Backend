@@ -7,13 +7,13 @@ import java.util.List;
 public class TechnicalSkillsDto {
 
     @NotEmpty(message = "Technology list cannot be empty")
-    private List<@NotBlank(message = "Technology cannot be blank") String> technology;
+    private List<String> technology;
 
     @NotEmpty(message = "Programming list cannot be empty")
-    private List<@NotBlank(message = "Programming language cannot be blank")String> programming;
+    private List<String> programming;
 
     @NotEmpty(message = "Tools list cannot be empty")
-    private List<@NotBlank(message = "Tools cannot be blank")String> tools;
+    private List<String> tools;
 
     public List<String> getTechnology() {
         return technology;
@@ -37,6 +37,15 @@ public class TechnicalSkillsDto {
 
     public void setTools(List<String> tools) {
         this.tools = tools;
+    }
+
+    @Override
+    public String toString() {
+        return "TechnicalSkillsDto{" +
+                "technology=" + technology +
+                ", programming=" + programming +
+                ", tools=" + tools +
+                '}';
     }
 }
 

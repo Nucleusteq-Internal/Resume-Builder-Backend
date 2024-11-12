@@ -2,7 +2,7 @@
 package com.project.ResumeBuilder.entities;
 
 import com.project.ResumeBuilder.dtos.ProfileDataDto;
-import jakarta.persistence.*;  // For JPA annotations
+import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 
