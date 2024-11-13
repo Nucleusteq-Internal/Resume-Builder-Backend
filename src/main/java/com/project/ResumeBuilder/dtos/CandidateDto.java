@@ -19,6 +19,8 @@ public class CandidateDto {
     @NotEmpty(message = "Objective cannot be empty")
     private String objective;
 
+    private String name;
+
     @Valid
     private ProfileDataDto profileData;
 
@@ -54,7 +56,13 @@ public class CandidateDto {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

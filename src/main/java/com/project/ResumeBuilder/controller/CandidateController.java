@@ -16,6 +16,13 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
 
+    @PostMapping("/upload")
+    public ResponseEntity<CommonResponseDto> uploadCandidateProfile(@RequestBody CandidateDto candidateDto) {
+        System.out.println(candidateDto);
+        CommonResponseDto createdProfile = candidateService.uploadCandidateProfile(candidateDto);
+        return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
+    }
+
 
     @PutMapping("/create/{id}")
     public ResponseEntity<CommonResponseDto> createCandidateProfile(@PathVariable Long id,@RequestBody CandidateDto candidateDto) {

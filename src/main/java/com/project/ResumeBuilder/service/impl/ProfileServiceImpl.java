@@ -4,6 +4,7 @@ import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.entities.Profile;
 import com.project.ResumeBuilder.entities.Users;
 import com.project.ResumeBuilder.exception.NotFoundException;
+import com.project.ResumeBuilder.exception.ResourceConflictException;
 import com.project.ResumeBuilder.repository.ProfileRepository;
 import com.project.ResumeBuilder.repository.UserRepository;
 import com.project.ResumeBuilder.service.ProfileService;
@@ -133,9 +134,13 @@ public class ProfileServiceImpl implements ProfileService {
 
         Optional<Users> userOptional = userRepository.findById(jobTitleDto.getUserId());
         if (!userOptional.isPresent()) {
-            throw new NotFoundException("User not found with ID: " + jobTitleDto.getUserId());
+            throw new NotFoundException(ProfileConstants.USER_NOT_FOUND + jobTitleDto.getUserId());
         }
 
+       /* Optional<Profile> existingProfile = profileRepository.findByUser_UserIdAndJobTitle(jobTitleDto.getUserId(), jobTitleDto.getTitle());
+        if (existingProfile.isPresent()) {
+            throw new ResourceConflictException(ProfileConstants.JOBTITLE_ALREADY_EXISTS + jobTitleDto.getUserId());
+        }*/
 
         Profile profile = new Profile();
         profile.setJobTitle(jobTitleDto.getTitle());

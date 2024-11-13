@@ -18,6 +18,7 @@ public class ProfileController {
     private ProfileService profileService;
 
 
+
     @PutMapping("/create/{id}")
     public ResponseEntity<CommonResponseDto> createProfile(@PathVariable Long id,@RequestBody ProfileDto profileDto) {
         System.out.println(profileDto);

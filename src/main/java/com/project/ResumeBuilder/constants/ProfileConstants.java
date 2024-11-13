@@ -6,6 +6,7 @@ public class ProfileConstants {
     public static final String PROFILE_NOT_FOUND = "Profile Not Found With Id ";
     public static final String USER_NOT_FOUND = "Profile Not Found With User Id ";
     public static final String PROFILE_DELETED_SUCCESSFULLY = "Profile Deleted Successfully";
+    public static final String JOBTITLE_ALREADY_EXISTS="Job title already exists for user ID: ";
 
 
 }

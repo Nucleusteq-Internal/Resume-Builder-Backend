@@ -43,6 +43,22 @@ public class CandidateServiceImpl implements CandidateService {
         return message;
     }
 
+    @Override
+    public CommonResponseDto uploadCandidateProfile(CandidateDto candidateDto) {
+
+        CandidateProfile candidate =new CandidateProfile();
+        candidate.setName(candidateDto.getName());
+        candidate.setEmail(candidateDto.getEmail());
+        candidate.setContactNo(candidateDto.getContactNo());
+        candidate.setObjective(candidateDto.getObjective());
+        candidate.setProfileData(candidateDto.getProfileData());
+        candidate.setCreatedAt(LocalDateTime.now());
+        candidateRepository.save(candidate);
+        CommonResponseDto message=new CommonResponseDto();
+        message.setMessage(ProfileConstants.PROFILE_CREATED_SUCCESSFULLY);
+        return message;
+    }
+
     public NameResponseDto createName(@RequestBody NameDto nameDto) {
         //JobTitle jobTitle = new JobTitle();
 
