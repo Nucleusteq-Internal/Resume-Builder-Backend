@@ -69,9 +69,9 @@ public class UsersService {
     public LoginOutDTO login(LoginInDTO loginInDTO) {
 
         try {
-            /*byte[] decodedBytes = Base64.getDecoder().decode(loginInDTO.getPassword());
+            byte[] decodedBytes = Base64.getDecoder().decode(loginInDTO.getPassword());
             String decodedPassword = new String(decodedBytes);
-            loginInDTO.setPassword(decodedPassword);*/
+            loginInDTO.setPassword(decodedPassword);
             Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(loginInDTO.getEmail(), loginInDTO.getPassword()));
             if (authentication.isAuthenticated()) {
                 Users user = userRepository.findByEmail(loginInDTO.getEmail());
