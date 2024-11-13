@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
@@ -58,12 +60,26 @@ public class CandidateServiceImpl implements CandidateService {
 
     }
 
+   public List<CandidateResponseDto> getAllProfiles() {
+        List<CandidateProfile> candidate = candidateRepository.findAll();
+        return candidate.stream().map(this::convertToResponseDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public CandidateResponseDto getCandidateProfileById(Long id) {
+        CandidateProfile profile = candidateRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
+
+        CandidateResponseDto responseDto =  convertToResponseDto(profile);
+        return responseDto;
+    }
 
 
-  /*  private CandidateResponseDto convertToResponseDto(CandidateProfile candidate) {
+    private CandidateResponseDto convertToResponseDto(CandidateProfile candidate) {
         CandidateResponseDto responseDto = new CandidateResponseDto();
         responseDto.setId(candidate.getId());
         responseDto.setName(candidate.getName());
+        responseDto.setEmail(candidate.getEmail());
         responseDto.setContactNo(candidate.getContactNo());
         responseDto.setObjective(candidate.getObjective());
         responseDto.setCreatedAt(candidate.getCreatedAt());
@@ -71,7 +87,7 @@ public class CandidateServiceImpl implements CandidateService {
         responseDto.setIsDeleted(candidate.getIsDeleted());
 
         return responseDto;
-    }*/
+    }
 
 
 }
