@@ -44,7 +44,7 @@ public class ProfileServiceImpl implements ProfileService {
         profile.setContactNo(profileDto.getContactNo());
         profile.setObjective(profileDto.getObjective());
         profile.setProfileData(profileDto.getProfileData());
-        profile.setCreatedAt(LocalDateTime.now());// Set ProfileDataDto
+        profile.setCreatedAt(LocalDateTime.now());
         profileRepository.save(profile);
         CommonResponseDto message=new CommonResponseDto();
         message.setMessage(ProfileConstants.PROFILE_CREATED_SUCCESSFULLY);
@@ -52,7 +52,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 
     @Override
-    public CommonResponseDto updateProfile(Long id, @Valid ProfileUpdateDto profileDto) {
+    public CommonResponseDto updateProfile(Long id, ProfileUpdateDto profileDto) {
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
 
@@ -116,7 +116,7 @@ public class ProfileServiceImpl implements ProfileService {
         ProfileResponseDto responseDto = new ProfileResponseDto();
         responseDto.setId(profile.getId());
         if (profile.getUser() != null) {
-            responseDto.setUserId(profile.getUser().getUserId()); // Assuming `id` is the user ID field in Users
+            responseDto.setUserId(profile.getUser().getUserId());
         }
         responseDto.setProfileName(profile.getProfileName());
         responseDto.setContactNo(profile.getContactNo());
@@ -137,10 +137,10 @@ public class ProfileServiceImpl implements ProfileService {
             throw new NotFoundException(ProfileConstants.USER_NOT_FOUND + jobTitleDto.getUserId());
         }
 
-       /* Optional<Profile> existingProfile = profileRepository.findByUser_UserIdAndJobTitle(jobTitleDto.getUserId(), jobTitleDto.getTitle());
+       Optional<Profile> existingProfile = profileRepository.findByUser_UserIdAndJobTitle(jobTitleDto.getUserId(), jobTitleDto.getTitle());
         if (existingProfile.isPresent()) {
             throw new ResourceConflictException(ProfileConstants.JOBTITLE_ALREADY_EXISTS + jobTitleDto.getUserId());
-        }*/
+        }
 
         Profile profile = new Profile();
         profile.setJobTitle(jobTitleDto.getTitle());
@@ -152,13 +152,13 @@ public class ProfileServiceImpl implements ProfileService {
 
     }
 
-    public List<String> getAllCollegeNames() {
+  /*  public List<String> getAllCollegeNames() {
         return profileRepository.findAll().stream()
                 .filter(profile -> profile.getProfileData() != null)
                 .flatMap(profile -> profile.getProfileData().getEducation().stream())
                 .map(EducationDto::getCollegeName)
                 .collect(Collectors.toList());
-    }
+    }*/
 
 
 }

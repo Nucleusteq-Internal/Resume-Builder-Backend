@@ -12,11 +12,11 @@ import java.util.Optional;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
-  /* List<Profile> findAllByUserId(Long userId);*/
+
   @Query("SELECT p FROM Profile p WHERE p.user.id = :userId")
   List<Profile> findAllByUserId(Long userId);
 
-  /*Optional<Profile> findByUser_UserIdAndJobTitle(Long UserId, String jobTitle);*/
+  Optional<Profile> findByUser_UserIdAndJobTitle(Long UserId, String jobTitle);
 
 }
 

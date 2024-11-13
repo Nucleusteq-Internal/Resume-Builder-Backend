@@ -3,18 +3,15 @@ package com.project.ResumeBuilder.service.impl;
 import com.project.ResumeBuilder.constants.ProfileConstants;
 import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.entities.CandidateProfile;
-import com.project.ResumeBuilder.entities.Profile;
-import com.project.ResumeBuilder.entities.Users;
 import com.project.ResumeBuilder.exception.NotFoundException;
 import com.project.ResumeBuilder.repository.CandidateRepository;
 import com.project.ResumeBuilder.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -60,9 +57,6 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     public NameResponseDto createName(@RequestBody NameDto nameDto) {
-        //JobTitle jobTitle = new JobTitle();
-
-
 
         CandidateProfile candidateProfile = new CandidateProfile();
         candidateProfile.setName(nameDto.getName());

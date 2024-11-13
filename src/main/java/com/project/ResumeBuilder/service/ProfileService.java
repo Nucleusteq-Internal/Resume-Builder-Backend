@@ -10,13 +10,13 @@ import java.util.List;
 public interface ProfileService {
 
     CommonResponseDto createProfile(Long id,ProfileDto profileDto);
-    CommonResponseDto updateProfile(Long id, @Valid ProfileUpdateDto profileDto);
+    CommonResponseDto updateProfile(Long id, ProfileUpdateDto profileDto);
     ProfileResponseDto getProfileById(Long id);
     DeleteResponseDto deleteProfile(Long profileId);
     List<ProfileResponseDto> getAllProfiles();
    List<ProfileResponseDto> getProfilesByUserId(Long userId);
     JobTitleResponseDto createJobTitle(JobTitleDto jobTitleDto);
-    List<String> getAllCollegeNames();
+    /*List<String> getAllCollegeNames();*/
 
 
 

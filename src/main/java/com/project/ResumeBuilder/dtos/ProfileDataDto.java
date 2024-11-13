@@ -3,12 +3,15 @@ package com.project.ResumeBuilder.dtos;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
 public class ProfileDataDto {
 
 
     @NotEmpty(message = "Professional summary cannot be empty")
+    @Size(max = 2000, message = "Professional summary cannot exceed 2000 characters")
     private String professionalSummary;
 
     @NotEmpty(message = "Certificates cannot be empty")
