@@ -130,8 +130,6 @@ public class ProfileServiceImpl implements ProfileService {
 
 
     public JobTitleResponseDto createJobTitle(@RequestBody JobTitleDto jobTitleDto) {
-        //JobTitle jobTitle = new JobTitle();
-
         Optional<Users> userOptional = userRepository.findById(jobTitleDto.getUserId());
         if (!userOptional.isPresent()) {
             throw new NotFoundException(ProfileConstants.USER_NOT_FOUND + jobTitleDto.getUserId());
