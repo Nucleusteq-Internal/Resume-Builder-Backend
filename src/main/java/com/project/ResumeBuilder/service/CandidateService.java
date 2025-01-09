@@ -11,4 +11,6 @@ public interface CandidateService {
     CandidateResponseDto getCandidateProfileById(Long id);
     NameResponseDto createName(NameDto nameDto);
     List<CandidateResponseDto> getAllProfiles();
+    DeleteResponseDto deleteCandidateProfile(Long candidateId);
+
 }

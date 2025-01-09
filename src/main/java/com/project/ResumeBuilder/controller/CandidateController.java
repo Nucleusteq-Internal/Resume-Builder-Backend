@@ -30,6 +30,14 @@ public class CandidateController {
         CommonResponseDto createdProfile = candidateService.createCandidateProfile(id,candidateDto);
         return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}/delete")
+    public  ResponseEntity<DeleteResponseDto> deleteCandidateProfile(@PathVariable Long id)
+    {
+        DeleteResponseDto response   = candidateService.deleteCandidateProfile(id);
+        return  new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
     @PostMapping("/createName")
     public ResponseEntity<NameResponseDto> createName(@RequestBody NameDto nameDto) {
         NameResponseDto name=candidateService.createName(nameDto);

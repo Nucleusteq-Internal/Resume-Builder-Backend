@@ -55,6 +55,21 @@ public class CandidateServiceImpl implements CandidateService {
         message.setMessage(ProfileConstants.PROFILE_CREATED_SUCCESSFULLY);
         return message;
     }
+    @Override
+    public DeleteResponseDto deleteCandidateProfile(Long candidateId) {
+        CandidateProfile candidate = candidateRepository.findById(candidateId)
+                .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + candidateId));
+
+        candidate.setIsDeleted(true); // Assuming this field exists in CandidateProfile
+        candidate.setDeletedAt(LocalDateTime.now());
+        candidateRepository.save(candidate);
+
+        DeleteResponseDto response = new DeleteResponseDto();
+        response.setMessage(ProfileConstants.PROFILE_DELETED_SUCCESSFULLY);
+        response.setIsDeleted(candidate.getIsDeleted());
+        return response;
+    }
+
 
     public NameResponseDto createName(@RequestBody NameDto nameDto) {
 
