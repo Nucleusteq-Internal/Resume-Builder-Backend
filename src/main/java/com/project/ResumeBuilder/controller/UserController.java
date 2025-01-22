@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,12 +29,14 @@ public class UserController {
     private OtpService otpService;
 
     @PostMapping("/register")
-    public ResponseEntity<SuccessOutDTO> registerUser(@Valid  @RequestBody RegisterInDTO registerInDTO) {
-        String response =  usersService.register(registerInDTO);
-        SuccessOutDTO successOutDTO = new SuccessOutDTO(response);
-        return ResponseEntity.status(HttpStatus.OK).body(successOutDTO);
+    public ResponseEntity<List<SuccessOutDTO>> registerUsers(@Valid @RequestBody List<RegisterInDTO> registerInDTOList) {
+        List<SuccessOutDTO> responseList = new ArrayList<>();
+        for (RegisterInDTO registerInDTO : registerInDTOList) {
+            String response = usersService.register(registerInDTO);
+            responseList.add(new SuccessOutDTO(response));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
-
     @PostMapping("/login")
     public ResponseEntity<LoginOutDTO> login(@Valid @RequestBody LoginInDTO loginInDTO) {
         LoginOutDTO loginOutDTO =  usersService.login(loginInDTO);
