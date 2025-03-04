@@ -3,7 +3,7 @@ name: Deploy to Amazon EKS prod
 on:
   push:
     branches:
-      - pre-prod
+      - feature/infra_and_workflows
     paths-ignore:
       - "**/README.md"
 
@@ -68,7 +68,7 @@ jobs:
       - name: Deploy k8s yaml
         id: deploy-k8s-yaml
         env:
-          K8S_YAML_DIR: ./platforms/nt-aws/deploy/overlays/prod
+          K8S_YAML_DIR: ./platforms/deploy/overlays/prod
           IMAGE_NAME: ${{ steps.build-image.outputs.image }}
         run: |
           chmod +x ./scripts/deploy-k8s.sh 
