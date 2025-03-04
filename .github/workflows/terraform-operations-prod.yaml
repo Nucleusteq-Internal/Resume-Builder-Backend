@@ -3,7 +3,7 @@ name: "Terraform Operations for Prod"
 on:
   push:
     branches:
-      - Branch_not_exists
+      - feature/infra_and_workflows
     paths:
       - "terraform/**"
       - "terragrunt/**"
