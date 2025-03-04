@@ -24,7 +24,7 @@ env:
   tg_version: "0.40.1"
   target_operation: "${{ github.event.inputs.operation || 'plan' }}"
   target_environment: prod
-  working_dir: "/home/runner/work/Resume-Builder-Backend/Resume-Builder-Backend/platforms/nt-aws/infra/terragrunt"
+  working_dir: "/home/runner/work/Resume-Builder-Backend/Resume-Builder-Backend/platforms/infra/terragrunt"
   role_to_assume: "arn:aws:iam::547568624982:role/infra-protal-prod-github-actions-role"
   aws_region: "us-west-2"
 
