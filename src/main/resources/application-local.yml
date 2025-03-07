@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Resume_Builder
+    username: postgres
+    password: deep
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  # Email Configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: restaurantordersportal@gmail.com
+    password: dvfc qjyi gmkb lynt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+server:
+  port: 8080
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.emp: DEBUG
+
+
