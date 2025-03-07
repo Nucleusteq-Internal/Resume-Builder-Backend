@@ -12,16 +12,16 @@ spring:
       ddl-auto: update
     show-sql: false
   # Email Configuration
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: restaurantordersportal@gmail.com
-#    password: dvfc qjyi gmkb lynt
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls.enable: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: restaurantordersportal@gmail.com
+    password: dvfc qjyi gmkb lynt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
 server:
   port: 8080
 logging:
