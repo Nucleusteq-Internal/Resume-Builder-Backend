@@ -38,7 +38,7 @@ public class DatabaseConfig {
         JSONObject obj = getAlldetails();
         String userName = obj.getString("username");
         String password = obj.getString("password");
-        String url = "jdbc:postgresql://"+obj.getString("hostname")+":5432/"+obj.getString("db_name")+"?currentSchema=public";
+        String url = "jdbc:postgresql://"+obj.getString("hostname")+":5432/"+obj.getString("db_name")+"?currentSchema=resume_builder_user_schema";
 //        String password = getCredentials();
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.username(userName);
