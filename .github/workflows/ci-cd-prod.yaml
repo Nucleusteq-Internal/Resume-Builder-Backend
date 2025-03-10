@@ -39,9 +39,12 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::547568624982:role/infra-protal-prod-github-actions-role
           aws-region: ${{ env.AWS_REGION }}
-
+  
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean --refresh-dependencies build
+
+      # - name: Build with Gradle
+      #   run: ./gradlew clean build
 
       - name: Login to Amazon ECR
         id: login-ecr
