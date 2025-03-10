@@ -29,8 +29,5 @@ logging:
   level:
     org.springframework.security: DEBUG
     com.emp: DEBUG
-aws:
-  secretsmanager:
-    secretName:
-    region:
+
 
