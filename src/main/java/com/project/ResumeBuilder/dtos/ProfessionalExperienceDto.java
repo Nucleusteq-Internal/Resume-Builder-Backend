@@ -18,10 +18,10 @@ public class ProfessionalExperienceDto {
     private String projectName;
 
 
-   // @Pattern(regexp = "\\d{4}-\\d{2}", message = "Start date must be in YYYY-MM format")
+
     private String startDate;
 
-   // @Pattern(regexp = "\\d{4}-\\d{2}", message = "End date must be in YYYY-MM format")
+
     private String endDate;
 
     @NotEmpty(message = "TechStack name cannot be empty")
