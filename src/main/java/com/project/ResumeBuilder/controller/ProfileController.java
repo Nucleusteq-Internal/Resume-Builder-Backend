@@ -20,7 +20,7 @@ public class ProfileController {
 
 
     @Transactional
-    @PutMapping("/create/{id}")
+    @PutMapping("/update-profile/{id}")
     public ResponseEntity<CommonResponseDto> createProfile(@PathVariable Long id,@RequestBody ProfileDto profileDto) {
         System.out.println(profileDto);
         CommonResponseDto createdProfile = profileService.createProfile(id,profileDto);
@@ -41,7 +41,7 @@ public class ProfileController {
     }
 
     @Transactional
-    @PutMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<DeleteResponseDto> deleteProfile(@PathVariable Long id) {
         DeleteResponseDto response=  profileService.deleteProfile(id);
         return new ResponseEntity<>(response, HttpStatus.OK);

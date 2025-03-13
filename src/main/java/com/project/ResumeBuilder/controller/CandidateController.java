@@ -24,14 +24,14 @@ public class CandidateController {
     }
 
 
-    @PutMapping("/create/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<CommonResponseDto> createCandidateProfile(@PathVariable Long id,@RequestBody CandidateDto candidateDto) {
         System.out.println(candidateDto);
         CommonResponseDto createdProfile = candidateService.createCandidateProfile(id,candidateDto);
         return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public  ResponseEntity<DeleteResponseDto> deleteCandidateProfile(@PathVariable Long id)
     {
         DeleteResponseDto response   = candidateService.deleteCandidateProfile(id);
