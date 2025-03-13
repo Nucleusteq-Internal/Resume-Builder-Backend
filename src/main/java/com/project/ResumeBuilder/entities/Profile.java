@@ -17,7 +17,7 @@ public class Profile {
     private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id")  // Referencing 'user_id' column in 'Users' entity
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
   private Users user;
 
     @Column(name="jobTitle")
@@ -63,13 +63,6 @@ public class Profile {
         this.user = user;
     }
 
-    /* public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }*/
 
     public String getJobTitle() {
         return jobTitle;

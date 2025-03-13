@@ -16,7 +16,7 @@ public interface ProfileService {
     List<ProfileResponseDto> getAllProfiles();
    List<ProfileResponseDto> getProfilesByUserId(Long userId);
     JobTitleResponseDto createJobTitle(JobTitleDto jobTitleDto);
-    /*List<String> getAllCollegeNames();*/
+
 
 
 

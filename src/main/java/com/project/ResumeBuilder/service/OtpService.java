@@ -11,12 +11,12 @@ import java.util.Random;
 public class OtpService {
     private Map<String, OtpData> otpStorage = new HashMap<>();
     private final Random random = new Random();
-    private final int OTP_VALID_DURATION = 5 * 60 * 1000; // 5 minutes
+    private final int OTP_VALID_DURATION = 5 * 60 * 1000;
 
     public String generateOtp(String email) {
-        String otp = String.format("%04d", random.nextInt(10000)); // Generate 4-digit OTP
+        String otp = String.format("%04d", random.nextInt(10000));
         OtpData otpData = new OtpData(otp, System.currentTimeMillis());
-        otpStorage.put(email, otpData); // Store OTP with email and timestamp
+        otpStorage.put(email, otpData);
         return otp;
     }
 
@@ -35,7 +35,7 @@ public class OtpService {
     }
 
     public void clearOtp(String email) {
-        otpStorage.remove(email); // Clear OTP after successful validation
+        otpStorage.remove(email);
     }
 
     private boolean isOtpExpired(long timestamp) {

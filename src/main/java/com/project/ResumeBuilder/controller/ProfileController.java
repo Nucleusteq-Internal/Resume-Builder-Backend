@@ -66,11 +66,6 @@ public class ProfileController {
         return new ResponseEntity<>(jobTitle, HttpStatus.CREATED);
     }
 
-  /*  @Transactional
-    @GetMapping("/colleges")
-    public List<String> getAllCollegeNames() {
-        return profileService.getAllCollegeNames();
-    }*/
 
 
 

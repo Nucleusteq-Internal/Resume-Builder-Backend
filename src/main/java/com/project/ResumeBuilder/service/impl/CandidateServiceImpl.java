@@ -60,7 +60,7 @@ public class CandidateServiceImpl implements CandidateService {
         CandidateProfile candidate = candidateRepository.findById(candidateId)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + candidateId));
 
-        candidate.setIsDeleted(true); // Assuming this field exists in CandidateProfile
+        candidate.setIsDeleted(true);
         candidate.setDeletedAt(LocalDateTime.now());
         candidateRepository.save(candidate);
 

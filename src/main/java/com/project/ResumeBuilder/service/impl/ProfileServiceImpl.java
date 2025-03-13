@@ -150,13 +150,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     }
 
-  /*  public List<String> getAllCollegeNames() {
-        return profileRepository.findAll().stream()
-                .filter(profile -> profile.getProfileData() != null)
-                .flatMap(profile -> profile.getProfileData().getEducation().stream())
-                .map(EducationDto::getCollegeName)
-                .collect(Collectors.toList());
-    }*/
+
 
 
 }

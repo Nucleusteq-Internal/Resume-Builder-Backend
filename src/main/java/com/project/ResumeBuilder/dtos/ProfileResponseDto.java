@@ -16,7 +16,7 @@ public class ProfileResponseDto {
     private LocalDateTime createdAt;
     private Boolean isDeleted;
     private String jobTitle;
-    // private LocalDateTime updatedAt;
+
 
     @Valid
     private ProfileDataDto profileData;

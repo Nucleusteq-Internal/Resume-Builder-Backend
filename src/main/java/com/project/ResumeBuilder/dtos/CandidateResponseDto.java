@@ -14,7 +14,7 @@ public class CandidateResponseDto {
     private String objective;
     private LocalDateTime createdAt;
     private Boolean isDeleted;
-    // private LocalDateTime updatedAt;
+
 
     @Valid
     private ProfileDataDto profileData;

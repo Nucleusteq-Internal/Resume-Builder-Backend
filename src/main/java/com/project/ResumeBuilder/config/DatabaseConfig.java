@@ -32,14 +32,10 @@ public class DatabaseConfig {
      */
     @Bean
     DataSource getDataSource() throws Exception {
-//        String userName = environment.getProperty("spring.datasource.username");
-//        String url = environment.getProperty("spring.datasource.url");
-//        String password = environment.getProperty("spring.datasource.password");
         JSONObject obj = getAlldetails();
         String userName = obj.getString("username");
         String password = obj.getString("password");
         String url = "jdbc:postgresql://"+obj.getString("hostname")+":5432/"+obj.getString("db_name")+"?currentSchema="+obj.getString("schema_name");
-//        String password = getCredentials();
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.username(userName);
         dataSourceBuilder.password(password);

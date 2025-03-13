@@ -30,7 +30,7 @@ public class CandidateProfile {
 
     @Type(JsonBinaryType.class)
     @Column(name = "profile_data", columnDefinition = "jsonb")
-    private ProfileDataDto profileData; // Use ProfileDataDto instead of Map
+    private ProfileDataDto profileData;
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
