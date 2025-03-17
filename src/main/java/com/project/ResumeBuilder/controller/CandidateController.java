@@ -25,9 +25,9 @@ public class CandidateController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<CommonResponseDto> createCandidateProfile(@PathVariable Long id,@RequestBody CandidateDto candidateDto) {
+    public ResponseEntity<CommonResponseDto> updateCandidateProfile(@PathVariable Long id,@RequestBody CandidateDto candidateDto) {
         System.out.println(candidateDto);
-        CommonResponseDto createdProfile = candidateService.createCandidateProfile(id,candidateDto);
+        CommonResponseDto createdProfile = candidateService.updateCandidateProfile(id,candidateDto);
         return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
     }
 

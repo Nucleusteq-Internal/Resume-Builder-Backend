@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CandidateService {
 
-    CommonResponseDto createCandidateProfile(Long id,CandidateDto candidateDto);
+    CommonResponseDto updateCandidateProfile(Long id,CandidateDto candidateDto);
     CommonResponseDto uploadCandidateProfile(CandidateDto candidateDto);
     CandidateResponseDto getCandidateProfileById(Long id);
     NameResponseDto createName(NameDto nameDto);

@@ -34,7 +34,7 @@ public class ProfileServiceImpl implements ProfileService {
     private UserRepository userRepository;
 
     @Override
-    public CommonResponseDto createProfile(Long id, ProfileDto profileDto) {
+    public CommonResponseDto updateNewProfile(Long id, ProfileDto profileDto) {
 
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));

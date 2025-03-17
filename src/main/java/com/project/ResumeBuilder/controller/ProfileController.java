@@ -21,9 +21,9 @@ public class ProfileController {
 
     @Transactional
     @PutMapping("/update-profile/{id}")
-    public ResponseEntity<CommonResponseDto> createProfile(@PathVariable Long id,@RequestBody ProfileDto profileDto) {
+    public ResponseEntity<CommonResponseDto> updateNewProfile(@PathVariable Long id, @RequestBody ProfileDto profileDto) {
         System.out.println(profileDto);
-        CommonResponseDto createdProfile = profileService.createProfile(id,profileDto);
+        CommonResponseDto createdProfile = profileService.updateNewProfile(id,profileDto);
         return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
     }
     @Transactional

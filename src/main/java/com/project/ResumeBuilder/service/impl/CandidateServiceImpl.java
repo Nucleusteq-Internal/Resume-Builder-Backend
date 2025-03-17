@@ -22,7 +22,7 @@ public class CandidateServiceImpl implements CandidateService {
     private CandidateRepository candidateRepository;
 
     @Override
-    public CommonResponseDto createCandidateProfile(Long id,CandidateDto candidateDto) {
+    public CommonResponseDto updateCandidateProfile(Long id,CandidateDto candidateDto) {
 
         CandidateProfile candidate = candidateRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
