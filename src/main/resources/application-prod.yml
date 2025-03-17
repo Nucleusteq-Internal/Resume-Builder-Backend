@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://portal-prod-db.cn4y48m4a3cx.us-west-2.rds.amazonaws.com:5432/portal_db?currentSchema=public
+    username: plasma_resume_builder_prod_db_user
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  # Email Configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: restaurantordersportal@gmail.com
+    password: dvfc qjyi gmkb lynt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+server:
+  port: 8080
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.emp: DEBUG
+aws:
+  secretsmanager:
+    secretName: resume_builder_user_prod_password
+    region: us-west-2
+
+

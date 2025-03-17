@@ -1,0 +1,34 @@
+
+[versions]
+com-vladmihalcea-hibernate-types-v60 = "2.20.0"
+io-jsonwebtoken-jjwt-api = "0.12.5"
+io-jsonwebtoken-jjwt-impl = "0.12.5"
+io-jsonwebtoken-jjwt-jackson = "0.12.5"
+org-postgresql-postgresql = "42.7.4"
+org-projectlombok-lombok = "1.18.24"
+org-springframework-boot-spring-boot-devtools = "3.3.4"
+org-springframework-boot-spring-boot-starter-data-jpa = "3.3.4"
+org-springframework-boot-spring-boot-starter-mail = "3.3.4"
+org-springframework-boot-spring-boot-starter-security = "3.3.4"
+org-springframework-boot-spring-boot-starter-test = "3.3.4"
+org-springframework-boot-spring-boot-starter-validation = "3.3.4"
+org-springframework-boot-spring-boot-starter-web = "3.3.4"
+org-springframework-security-spring-security-config = "6.3.3"
+org-springframework-security-spring-security-web = "6.3.3"
+
+[libraries]
+com-vladmihalcea-hibernate-types-v60 = { module = "com.vladmihalcea:hibernate-types-60", version.ref = "com-vladmihalcea-hibernate-types-v60" }
+io-jsonwebtoken-jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "io-jsonwebtoken-jjwt-api" }
+io-jsonwebtoken-jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "io-jsonwebtoken-jjwt-impl" }
+io-jsonwebtoken-jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "io-jsonwebtoken-jjwt-jackson" }
+org-postgresql-postgresql = { module = "org.postgresql:postgresql", version.ref = "org-postgresql-postgresql" }
+org-projectlombok-lombok = { module = "org.projectlombok:lombok", version.ref = "org-projectlombok-lombok" }
+org-springframework-boot-spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "org-springframework-boot-spring-boot-devtools" }
+org-springframework-boot-spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "org-springframework-boot-spring-boot-starter-data-jpa" }
+org-springframework-boot-spring-boot-starter-mail = { module = "org.springframework.boot:spring-boot-starter-mail", version.ref = "org-springframework-boot-spring-boot-starter-mail" }
+org-springframework-boot-spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "org-springframework-boot-spring-boot-starter-security" }
+org-springframework-boot-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "org-springframework-boot-spring-boot-starter-test" }
+org-springframework-boot-spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "org-springframework-boot-spring-boot-starter-validation" }
+org-springframework-boot-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "org-springframework-boot-spring-boot-starter-web" }
+org-springframework-security-spring-security-config = { module = "org.springframework.security:spring-security-config", version.ref = "org-springframework-security-spring-security-config" }
+org-springframework-security-spring-security-web = { module = "org.springframework.security:spring-security-web", version.ref = "org-springframework-security-spring-security-web" }
