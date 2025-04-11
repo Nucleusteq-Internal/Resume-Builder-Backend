@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resume-builder-backend-api
+  namespace: plasma-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-name: resume-builder-backend-api
+  template:
+    metadata:
+      labels:
+        app-name: resume-builder-backend-api
+    spec:
+      serviceAccountName: resume-builder-backend-api-service-account
+      containers:
+        - name: resume-builder-backend-api
+          image: image_name
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 1000Mi
+          ports:
+            - containerPort: 8080
+          env:
+            - name: env
+              value: "prod"
