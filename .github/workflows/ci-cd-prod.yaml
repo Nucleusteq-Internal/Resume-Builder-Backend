@@ -3,7 +3,7 @@ name: Deploy to Amazon EKS prod
 on:
   push:
     branches:
-      - feature/infra_and_workflows
+      - dev
       # - branch_name
     paths-ignore:
       - "**/README.md"
