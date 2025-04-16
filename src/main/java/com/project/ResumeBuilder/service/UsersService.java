@@ -41,21 +41,25 @@ public class UsersService {
     private EmailService emailService;
 
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public String register(RegisterInDTO registerInDTO) {
         try {
             if (userRepository.findByEmail(registerInDTO.getEmail()) != null) {
                 throw new ResourceConflictException(ConstantMessage.USER_ALREADY_EXISTS);
             }
+            if (userRepository.existsByEmpId(registerInDTO.getEmpId())) {
+                throw new RuntimeException("Employee ID already exists");
+            }
             UserRole role = UserRole.valueOf(registerInDTO.getRole());
-            byte[] decodedBytes = Base64.getDecoder().decode(registerInDTO.getPassword());
-            String decodedPassword = new String(decodedBytes);
-            registerInDTO.setPassword(decodedPassword);
+//            byte[] decodedBytes = Base64.getDecoder().decode(registerInDTO.getPassword());
+//            String decodedPassword = new String(decodedBytes);
+//            registerInDTO.setPassword(decodedPassword);
             registerInDTO.setPassword(encoder.encode(registerInDTO.getPassword()));
             Users user = DtoConvertor.convertToEntity(registerInDTO);
             user.setRole(role);
-            userRepository.save(user);
+            user.setEmpId(registerInDTO.getEmpId());
+             Users newUser = userRepository.save(user);
             return ConstantMessage.USER_REGISTERED_SUCCESSFULLY;
         } catch (IllegalArgumentException e) {
             throw new ResourceInvalidException(ConstantMessage.VALID_ROLE_REQUIRED);

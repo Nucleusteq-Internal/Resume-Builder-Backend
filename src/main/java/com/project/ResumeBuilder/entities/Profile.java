@@ -128,10 +128,13 @@ public class Profile {
         this.deletedAt = deletedAt;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
 
-
-
-
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
 }
 
 

@@ -11,4 +11,5 @@ public class LoginOutDTO {
     private String token;
     private String name;
     private UserRole role;
+    private String empId;
 }

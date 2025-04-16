@@ -3,6 +3,7 @@ import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.service.CandidateService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,5 +56,11 @@ public class CandidateController {
     public ResponseEntity<List<CandidateResponseDto>> getAllProfiles() {
         List<CandidateResponseDto> profiles = candidateService.getAllProfiles();
         return new ResponseEntity<>(profiles, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchProfile")
+    public ResponseEntity<List<CandidateResponseDto>> getSearchProfiles(@RequestParam("name") String name)
+    {
+        return new ResponseEntity<>(candidateService.getProfilesBySeries(name),HttpStatus.OK);
     }
 }
