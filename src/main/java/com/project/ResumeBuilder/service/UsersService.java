@@ -52,9 +52,9 @@ public class UsersService {
                 throw new RuntimeException("Employee ID already exists");
             }
             UserRole role = UserRole.valueOf(registerInDTO.getRole());
-//            byte[] decodedBytes = Base64.getDecoder().decode(registerInDTO.getPassword());
-//            String decodedPassword = new String(decodedBytes);
-//            registerInDTO.setPassword(decodedPassword);
+            byte[] decodedBytes = Base64.getDecoder().decode(registerInDTO.getPassword());
+            String decodedPassword = new String(decodedBytes);
+            registerInDTO.setPassword(decodedPassword);
             registerInDTO.setPassword(encoder.encode(registerInDTO.getPassword()));
             Users user = DtoConvertor.convertToEntity(registerInDTO);
             user.setRole(role);
