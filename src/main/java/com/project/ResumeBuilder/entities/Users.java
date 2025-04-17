@@ -38,6 +38,9 @@ public class Users {
 
     private String bio;
 
+    @Column(name = "emp_id")
+    private String empId;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
 

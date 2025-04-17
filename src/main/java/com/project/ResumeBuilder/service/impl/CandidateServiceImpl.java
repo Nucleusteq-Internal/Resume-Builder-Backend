@@ -4,6 +4,7 @@ import com.project.ResumeBuilder.constants.ProfileConstants;
 import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.entities.CandidateProfile;
 import com.project.ResumeBuilder.exception.NotFoundException;
+import com.project.ResumeBuilder.exception.ResourceNotFoundException;
 import com.project.ResumeBuilder.repository.CandidateRepository;
 import com.project.ResumeBuilder.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,21 @@ public class CandidateServiceImpl implements CandidateService {
         response.setMessage(ProfileConstants.PROFILE_DELETED_SUCCESSFULLY);
         response.setIsDeleted(candidate.getIsDeleted());
         return response;
+    }
+
+    @Override
+    public List<CandidateResponseDto> getProfilesBySeries(String series){
+        try{
+            List<CandidateProfile> candidates =  candidateRepository.findBySeries(series);
+            if (!candidates.isEmpty())
+            {
+                return candidates.stream().map(this::convertToResponseDto).collect(Collectors.toList());
+            }
+            else throw new ResourceNotFoundException("No Candidates Found");
+        }
+        catch (ResourceNotFoundException e) {
+            throw e; // Re-throwing NotFoundException to maintain original exception
+        }
     }
 
 

@@ -16,6 +16,7 @@ public class ProfileResponseDto {
     private LocalDateTime createdAt;
     private Boolean isDeleted;
     private String jobTitle;
+    private String empId;
 
 
     @Valid
@@ -91,6 +92,22 @@ public class ProfileResponseDto {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public String getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 }
 

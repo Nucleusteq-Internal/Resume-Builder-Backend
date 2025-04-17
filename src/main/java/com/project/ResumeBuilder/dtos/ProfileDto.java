@@ -26,6 +26,10 @@ public class ProfileDto {
     @NotNull(message = "Profile data cannot be null")
     private ProfileDataDto profileData;
 
+    @Valid
+    @NotNull(message = "Employee Id Cannot be null")
+    private String empId;
+
     public Long getUserId() {
         return userId;
     }
@@ -75,6 +79,14 @@ public class ProfileDto {
                 ", objective='" + objective + '\'' +
                 ", profileData=" + profileData +
                 '}';
+    }
+
+    public String getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 }
 

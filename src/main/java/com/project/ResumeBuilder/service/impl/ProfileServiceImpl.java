@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,6 @@ public class ProfileServiceImpl implements ProfileService {
     public CommonResponseDto updateProfile(Long id, ProfileUpdateDto profileDto) {
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
-
         profile.setProfileName(profileDto.getProfileName());
         profile.setContactNo(profileDto.getContactNo());
         profile.setObjective(profileDto.getObjective());
@@ -118,6 +118,7 @@ public class ProfileServiceImpl implements ProfileService {
         if (profile.getUser() != null) {
             responseDto.setUserId(profile.getUser().getUserId());
         }
+        responseDto.setEmpId(profile.getUser().getEmpId());
         responseDto.setProfileName(profile.getProfileName());
         responseDto.setContactNo(profile.getContactNo());
         responseDto.setObjective(profile.getObjective());
