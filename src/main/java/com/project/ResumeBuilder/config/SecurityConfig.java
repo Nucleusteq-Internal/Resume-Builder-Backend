@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/users/login", "/users/register").permitAll()
                         .requestMatchers("/users/forgot-password", "/users/reset-password").permitAll()
                         .requestMatchers("/api/user-profiles/getAllProfile").hasAuthority("ROLE_HR")
+                        .requestMatchers("/api/getAllProfilesWithPagination").hasAuthority("ROLE_HR")
                         .requestMatchers("/api/user-profiles/CreateJobTitles").permitAll()
                         .requestMatchers("/api/user-profiles/update-profiles").permitAll()
                         .requestMatchers("/users/employees").hasAuthority("ROLE_HR")

@@ -14,4 +14,6 @@ public interface CandidateService {
     DeleteResponseDto deleteCandidateProfile(Long candidateId);
 
     List<CandidateResponseDto> getProfilesBySeries(String series);
+
+    List<CandidateResponseDto> getAllProfilesWithPagination(int page, int pageSize);
 }

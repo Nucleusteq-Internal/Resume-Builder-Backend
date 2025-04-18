@@ -8,6 +8,10 @@ import com.project.ResumeBuilder.exception.ResourceNotFoundException;
 import com.project.ResumeBuilder.repository.CandidateRepository;
 import com.project.ResumeBuilder.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDateTime;
@@ -84,6 +88,17 @@ public class CandidateServiceImpl implements CandidateService {
         catch (ResourceNotFoundException e) {
             throw e; // Re-throwing NotFoundException to maintain original exception
         }
+    }
+
+    @Override
+    public List<CandidateResponseDto> getAllProfilesWithPagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "id"));
+        Page<CandidateProfile> candidatePage = candidateRepository.findAll(pageable);
+
+        return candidatePage.getContent()
+                .stream()
+                .map(this::convertToResponseDto)
+                .collect(Collectors.toList());
     }
 
 
