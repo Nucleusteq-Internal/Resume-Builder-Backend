@@ -17,5 +17,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     List<EmployeeDetailDTO> findEmployees();
 
     boolean existsByEmpId(String empId);
+    boolean existsByEmail(String email);
 
 }

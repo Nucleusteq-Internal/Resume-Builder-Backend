@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import javax.naming.AuthenticationException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestControllerAdvice
@@ -43,18 +45,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleValidationException(final MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
-
     @ExceptionHandler(SignatureException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ErrorResponse> handleJwtSignatureException(final SignatureException ex) {
@@ -75,6 +65,29 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = buildSimpleErrorResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+ @ExceptionHandler(HandlerMethodValidationException.class)
+ public ResponseEntity<Map<String, Object>> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
+     String errorMessage = ex.getAllErrors().stream()
+             .map(error -> {
+                 if (error instanceof FieldError fieldError) {
+                     return fieldError.getField() + ": " + fieldError.getDefaultMessage();
+                 }
+                 return error.getDefaultMessage();
+             })
+             .collect(Collectors.joining(", "));
+
+     Map<String, Object> body = new HashMap<>();
+     body.put("status", HttpStatus.BAD_REQUEST.value());
+     body.put("message", errorMessage);
+
+     return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+ }
+
+
+
+
 }
 
 

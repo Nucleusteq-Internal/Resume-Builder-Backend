@@ -10,6 +10,7 @@ import com.project.ResumeBuilder.exception.ResourceConflictException;
 import com.project.ResumeBuilder.exception.ResourceInvalidException;
 import com.project.ResumeBuilder.exception.ResourceNotFoundException;
 import com.project.ResumeBuilder.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersService {
@@ -248,4 +250,33 @@ public class UsersService {
             throw new RuntimeException(ConstantMessage.UNEXPECTED_ERROR_OCCURRED);
         }
     }
+
+
+    public void saveUsers(List<BulkUserDto> userDtoList) {
+        for (BulkUserDto dto : userDtoList) {
+
+            if (userRepository.existsByEmail(dto.getEmail())) {
+                throw new ResourceConflictException("Email already exists: " + dto.getEmail());
+            }
+
+            if (userRepository.existsByEmpId(dto.getEmpId())) {
+                throw new ResourceConflictException("Employee ID already exists: " + dto.getEmpId());
+            }
+
+            Users user = new Users();
+            user.setName(dto.getName());
+            user.setEmail(dto.getEmail());
+            user.setEmpId(dto.getEmpId());
+            user.setPassword(new String(Base64.getDecoder().decode(dto.getPassword())));
+
+            UserRole role = UserRole.valueOf(dto.getRole().toUpperCase());
+            user.setRole(role);
+
+            userRepository.save(user);
+        }
+    }
+
+
+
+
 }
