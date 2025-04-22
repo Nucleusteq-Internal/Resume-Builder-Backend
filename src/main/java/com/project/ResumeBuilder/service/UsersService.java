@@ -254,11 +254,9 @@ public class UsersService {
 
     public void saveUsers(List<BulkUserDto> userDtoList) {
         for (BulkUserDto dto : userDtoList) {
-
             if (userRepository.existsByEmail(dto.getEmail())) {
                 throw new ResourceConflictException("Email already exists: " + dto.getEmail());
             }
-
             if (userRepository.existsByEmpId(dto.getEmpId())) {
                 throw new ResourceConflictException("Employee ID already exists: " + dto.getEmpId());
             }
@@ -267,10 +265,21 @@ public class UsersService {
             user.setName(dto.getName());
             user.setEmail(dto.getEmail());
             user.setEmpId(dto.getEmpId());
-            user.setPassword(new String(Base64.getDecoder().decode(dto.getPassword())));
 
-            UserRole role = UserRole.valueOf(dto.getRole().toUpperCase());
-            user.setRole(role);
+
+            byte[] decodedBytes = Base64.getDecoder().decode(dto.getPassword());
+            String decodedPassword = new String(decodedBytes);
+
+            String encryptedPassword = encoder.encode(decodedPassword);
+            user.setPassword(encryptedPassword);
+
+
+            try {
+                UserRole role = UserRole.valueOf(dto.getRole().toUpperCase());
+                user.setRole(role);
+            } catch (IllegalArgumentException e) {
+                throw new ResourceInvalidException("Invalid role provided: " + dto.getRole());
+            }
 
             userRepository.save(user);
         }
