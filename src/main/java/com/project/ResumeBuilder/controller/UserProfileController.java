@@ -1,6 +1,7 @@
 package com.project.ResumeBuilder.controller;
 
 import com.project.ResumeBuilder.dtos.CandidateResponseDto;
+import com.project.ResumeBuilder.dtos.PaginatedResponse;
 import com.project.ResumeBuilder.entities.CandidateProfile;
 import com.project.ResumeBuilder.service.CandidateService;
 import jakarta.transaction.Transactional;
@@ -25,12 +26,10 @@ public class UserProfileController {
 
     @Transactional
     @GetMapping("/getAllProfilesWithPagination")
-    public ResponseEntity<List<CandidateResponseDto>> getAllProfilesWithPagination(
+    public ResponseEntity<?> getAllProfilesWithPagination(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
-
-        List<CandidateResponseDto> profiles = candidateService.getAllProfilesWithPagination(page, size);
-
-        return new ResponseEntity<>(profiles, HttpStatus.OK);
+        PaginatedResponse<CandidateResponseDto> response = candidateService.getAllProfilesWithPagination(page, size);
+        return ResponseEntity.ok(response);
     }
 }

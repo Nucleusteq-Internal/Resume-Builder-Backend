@@ -91,14 +91,29 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateResponseDto> getAllProfilesWithPagination(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "id"));
+    public PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<CandidateProfile> candidatePage = candidateRepository.findAll(pageable);
-
-        return candidatePage.getContent()
+        List<CandidateResponseDto> candidateResponseList = candidatePage.getContent()
                 .stream()
-                .map(this::convertToResponseDto)
+                .map(this::convertToResponseDto)  // your own mapper method
                 .collect(Collectors.toList());
+
+        PaginatedResponse.Pagination pagination = new PaginatedResponse.Pagination(
+                candidatePage.getTotalElements(),
+                size,
+                page,
+                candidatePage.getTotalPages()
+        );
+
+        PaginatedResponse<CandidateResponseDto> response = new PaginatedResponse<>(candidateResponseList, pagination);
+        return response;
+//        Page<CandidateProfile> candidatePage = candidateRepository.findAll(pageable);
+//
+//        return candidatePage.getContent()
+//                .stream()
+//                .map(this::convertToResponseDto)
+//                .collect(Collectors.toList());
     }
 
 
