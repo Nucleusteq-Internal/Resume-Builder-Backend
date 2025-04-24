@@ -108,12 +108,6 @@ public class CandidateServiceImpl implements CandidateService {
 
         PaginatedResponse<CandidateResponseDto> response = new PaginatedResponse<>(candidateResponseList, pagination);
         return response;
-//        Page<CandidateProfile> candidatePage = candidateRepository.findAll(pageable);
-//
-//        return candidatePage.getContent()
-//                .stream()
-//                .map(this::convertToResponseDto)
-//                .collect(Collectors.toList());
     }
 
 
