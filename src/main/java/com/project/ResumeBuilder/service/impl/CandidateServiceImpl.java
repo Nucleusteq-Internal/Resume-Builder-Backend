@@ -93,7 +93,7 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
-        Page<CandidateProfile> candidatePage = candidateRepository.findAll(pageable);
+        Page<CandidateProfile> candidatePage = candidateRepository.findByIsDeletedFalse(pageable);
         List<CandidateResponseDto> candidateResponseList = candidatePage.getContent()
                 .stream()
                 .map(this::convertToResponseDto)  // your own mapper method
