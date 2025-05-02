@@ -91,9 +91,17 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int size) {
+    public PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int size, String searchQuery) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
-        Page<CandidateProfile> candidatePage = candidateRepository.findByIsDeletedFalse(pageable);
+        Page<CandidateProfile> candidatePage;
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            // Fetch all profiles if no search query is provided
+            candidatePage = candidateRepository.findByIsDeletedFalse(pageable);
+        } else {
+            // Fetch filtered profiles based on the search query
+            candidatePage = candidateRepository.findByIsDeletedFalseAndNameContainingIgnoreCaseOrEmailContainingIgnoreCase(
+                    searchQuery, searchQuery, pageable);
+        }
         List<CandidateResponseDto> candidateResponseList = candidatePage.getContent()
                 .stream()
                 .map(this::convertToResponseDto)  // your own mapper method
@@ -106,8 +114,7 @@ public class CandidateServiceImpl implements CandidateService {
                 candidatePage.getTotalPages()
         );
 
-        PaginatedResponse<CandidateResponseDto> response = new PaginatedResponse<>(candidateResponseList, pagination);
-        return response;
+        return new PaginatedResponse<>(candidateResponseList, pagination);
     }
 
 

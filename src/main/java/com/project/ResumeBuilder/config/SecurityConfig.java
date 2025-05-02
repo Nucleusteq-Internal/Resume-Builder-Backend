@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/user-profiles/update-profiles").permitAll()
                         .requestMatchers("/users/employees").hasAuthority("ROLE_HR")
                         .requestMatchers("/api/user-profiles/{id}/delete").hasAnyAuthority("ROLE_HR", "ROLE_EMPLOYEE")
-                        .requestMatchers("/api/user-profiles/update-profile/{id}").hasAnyAuthority("ROLE_HR", "ROLE_EMPLOYEE")
+                        .requestMatchers("/api/user-profiles/update-profile/{id}").permitAll()
                         .requestMatchers("/api/candidate-profiles/update/{id}").hasAnyAuthority("ROLE_HR")
                         .requestMatchers("/api/candidate-profiles/upload","/api/candidate-profiles/searchProfile").permitAll()
                         .requestMatchers("/api/user-profiles/update/{id}").hasAnyAuthority("ROLE_HR", "ROLE_EMPLOYEE")

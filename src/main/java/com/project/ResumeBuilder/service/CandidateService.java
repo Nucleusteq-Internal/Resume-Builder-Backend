@@ -15,5 +15,5 @@ public interface CandidateService {
 
     List<CandidateResponseDto> getProfilesBySeries(String series);
 
-    PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int pageSize);
+    PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int pageSize, String searchQuery);
 }

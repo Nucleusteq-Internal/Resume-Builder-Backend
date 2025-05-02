@@ -28,8 +28,9 @@ public class UserProfileController {
     @GetMapping("/getAllProfilesWithPagination")
     public ResponseEntity<?> getAllProfilesWithPagination(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
-        PaginatedResponse<CandidateResponseDto> response = candidateService.getAllProfilesWithPagination(page, size);
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "") String searchQuery){
+        PaginatedResponse<CandidateResponseDto> response = candidateService.getAllProfilesWithPagination(page, size, searchQuery);
         return ResponseEntity.ok(response);
     }
 }

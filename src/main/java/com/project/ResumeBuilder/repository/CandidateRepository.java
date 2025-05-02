@@ -18,4 +18,6 @@ public interface CandidateRepository extends JpaRepository<CandidateProfile,Long
     List<CandidateProfile> findBySeries(@Param("series") String series);
 
     Page<CandidateProfile> findByIsDeletedFalse(Pageable pageable);
+    Page<CandidateProfile> findByIsDeletedFalseAndNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name,String email,
+                                                                                                      Pageable pageable);
 }
