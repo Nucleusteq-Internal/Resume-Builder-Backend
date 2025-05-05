@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,16 @@ public class ProfileServiceImpl implements ProfileService {
 
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ProfileConstants.PROFILE_NOT_FOUND + id));
+        String profileName = profileDto.getProfileName();
+        if (profileName == null || profileName.trim().isEmpty()) {
+            Users user = profile.getUser();
+            if (user == null || user.getName() == null || user.getName().trim().isEmpty()) {
+                throw new NotFoundException("User or user name not found for profile ID: " + id);
+            }
+            profileName = user.getName();
+        }
 
-        //profile.setUserId(profileDto.getUserId());
-        profile.setProfileName(profileDto.getProfileName());
+        profile.setProfileName(profileName);
         profile.setContactNo(profileDto.getContactNo());
         profile.setObjective(profileDto.getObjective());
         profile.setProfileData(profileDto.getProfileData());
