@@ -4,9 +4,14 @@ import com.project.ResumeBuilder.constants.ProfileConstants;
 import com.project.ResumeBuilder.dtos.*;
 import com.project.ResumeBuilder.entities.CandidateProfile;
 import com.project.ResumeBuilder.exception.NotFoundException;
+import com.project.ResumeBuilder.exception.ResourceNotFoundException;
 import com.project.ResumeBuilder.repository.CandidateRepository;
 import com.project.ResumeBuilder.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDateTime;
@@ -68,6 +73,48 @@ public class CandidateServiceImpl implements CandidateService {
         response.setMessage(ProfileConstants.PROFILE_DELETED_SUCCESSFULLY);
         response.setIsDeleted(candidate.getIsDeleted());
         return response;
+    }
+
+    @Override
+    public List<CandidateResponseDto> getProfilesBySeries(String series){
+        try{
+            List<CandidateProfile> candidates =  candidateRepository.findBySeries(series);
+            if (!candidates.isEmpty())
+            {
+                return candidates.stream().map(this::convertToResponseDto).collect(Collectors.toList());
+            }
+            else throw new ResourceNotFoundException("No Candidates Found");
+        }
+        catch (ResourceNotFoundException e) {
+            throw e; // Re-throwing NotFoundException to maintain original exception
+        }
+    }
+
+    @Override
+    public PaginatedResponse<CandidateResponseDto> getAllProfilesWithPagination(int page, int size, String searchQuery) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        Page<CandidateProfile> candidatePage;
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            // Fetch all profiles if no search query is provided
+            candidatePage = candidateRepository.findByIsDeletedFalse(pageable);
+        } else {
+            // Fetch filtered profiles based on the search query
+            candidatePage = candidateRepository.findByIsDeletedFalseAndNameContainingIgnoreCaseOrEmailContainingIgnoreCase(
+                    searchQuery, searchQuery, pageable);
+        }
+        List<CandidateResponseDto> candidateResponseList = candidatePage.getContent()
+                .stream()
+                .map(this::convertToResponseDto)  // your own mapper method
+                .collect(Collectors.toList());
+
+        PaginatedResponse.Pagination pagination = new PaginatedResponse.Pagination(
+                candidatePage.getTotalElements(),
+                size,
+                page,
+                candidatePage.getTotalPages()
+        );
+
+        return new PaginatedResponse<>(candidateResponseList, pagination);
     }
 
 

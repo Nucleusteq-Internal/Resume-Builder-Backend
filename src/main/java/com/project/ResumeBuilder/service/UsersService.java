@@ -10,6 +10,7 @@ import com.project.ResumeBuilder.exception.ResourceConflictException;
 import com.project.ResumeBuilder.exception.ResourceInvalidException;
 import com.project.ResumeBuilder.exception.ResourceNotFoundException;
 import com.project.ResumeBuilder.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersService {
@@ -41,12 +43,15 @@ public class UsersService {
     private EmailService emailService;
 
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public String register(RegisterInDTO registerInDTO) {
         try {
             if (userRepository.findByEmail(registerInDTO.getEmail()) != null) {
                 throw new ResourceConflictException(ConstantMessage.USER_ALREADY_EXISTS);
+            }
+            if (userRepository.existsByEmpId(registerInDTO.getEmpId())) {
+                throw new RuntimeException("Employee ID already exists");
             }
             UserRole role = UserRole.valueOf(registerInDTO.getRole());
             byte[] decodedBytes = Base64.getDecoder().decode(registerInDTO.getPassword());
@@ -55,7 +60,8 @@ public class UsersService {
             registerInDTO.setPassword(encoder.encode(registerInDTO.getPassword()));
             Users user = DtoConvertor.convertToEntity(registerInDTO);
             user.setRole(role);
-            userRepository.save(user);
+            user.setEmpId(registerInDTO.getEmpId());
+             Users newUser = userRepository.save(user);
             return ConstantMessage.USER_REGISTERED_SUCCESSFULLY;
         } catch (IllegalArgumentException e) {
             throw new ResourceInvalidException(ConstantMessage.VALID_ROLE_REQUIRED);
@@ -244,4 +250,42 @@ public class UsersService {
             throw new RuntimeException(ConstantMessage.UNEXPECTED_ERROR_OCCURRED);
         }
     }
+
+
+    public void saveUsers(List<BulkUserDto> userDtoList) {
+        for (BulkUserDto dto : userDtoList) {
+            if (userRepository.existsByEmail(dto.getEmail())) {
+                throw new ResourceConflictException("Email already exists: " + dto.getEmail());
+            }
+            if (userRepository.existsByEmpId(dto.getEmpId())) {
+                throw new ResourceConflictException("Employee ID already exists: " + dto.getEmpId());
+            }
+
+            Users user = new Users();
+            user.setName(dto.getName());
+            user.setEmail(dto.getEmail());
+            user.setEmpId(dto.getEmpId());
+
+
+            byte[] decodedBytes = Base64.getDecoder().decode(dto.getPassword());
+            String decodedPassword = new String(decodedBytes);
+
+            String encryptedPassword = encoder.encode(decodedPassword);
+            user.setPassword(encryptedPassword);
+
+
+            try {
+                UserRole role = UserRole.valueOf(dto.getRole().toUpperCase());
+                user.setRole(role);
+            } catch (IllegalArgumentException e) {
+                throw new ResourceInvalidException("Invalid role provided: " + dto.getRole());
+            }
+
+            userRepository.save(user);
+        }
+    }
+
+
+
+
 }

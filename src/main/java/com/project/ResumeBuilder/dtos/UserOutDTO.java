@@ -10,4 +10,5 @@ public class UserOutDTO {
     private String email;
     private String name;
     private UserRole role;
+    private String empId;
 }

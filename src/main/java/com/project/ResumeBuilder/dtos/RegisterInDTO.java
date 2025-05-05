@@ -34,6 +34,9 @@ public class RegisterInDTO {
     @NotNull(message = "Role is mandatory")
     private String role;
 
+    @NotNull(message = "Employee Id Cannot be null")
+    private String empId;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -14,6 +14,7 @@ public class DtoConvertor{
         loginOutDTO.setEmail(users.getEmail());
         loginOutDTO.setName(users.getName());
         loginOutDTO.setRole(users.getRole());
+        loginOutDTO.setEmpId(users.getEmpId());
         return loginOutDTO;
     }
 
@@ -23,6 +24,7 @@ public class DtoConvertor{
         userOutDTO.setName(users.getName());
         userOutDTO.setEmail(users.getEmail());
         userOutDTO.setRole(users.getRole());
+        userOutDTO.setEmpId(users.getEmpId());
         return userOutDTO;
     }
 
@@ -32,6 +34,7 @@ public class DtoConvertor{
         userProfileDetailsOutDTO.setDob(users.getDob());
         userProfileDetailsOutDTO.setBio(users.getBio());
         userProfileDetailsOutDTO.setPhone(users.getPhone());
+        userProfileDetailsOutDTO.setEmpId(users.getEmpId());
         if (users.getGender() != null) {
             userProfileDetailsOutDTO.setGender(users.getGender().name());
         }
@@ -43,6 +46,7 @@ public class DtoConvertor{
         users.setEmail(registerInDTO.getEmail());
         users.setName(registerInDTO.getName());
         users.setPassword(registerInDTO.getPassword());
+        users.setEmpId(registerInDTO.getEmpId());
         return users;
     }
 }

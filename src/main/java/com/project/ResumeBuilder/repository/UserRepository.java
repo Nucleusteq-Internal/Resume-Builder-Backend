@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
@@ -15,5 +14,8 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
     @Query("SELECT new com.project.ResumeBuilder.dtos.EmployeeDetailDTO(u.userId, u.email, u.name) FROM Users u WHERE u.role = 'ROLE_EMPLOYEE'")
     List<EmployeeDetailDTO> findEmployees();
+
+    boolean existsByEmpId(String empId);
+    boolean existsByEmail(String email);
 
 }

@@ -17,6 +17,8 @@ public class ProfileUpdateDto {
     @Valid
     private ProfileDataDto profileData;
 
+    private String empId;
+
     public  String getProfileName() {
         return profileName;
     }
@@ -47,6 +49,14 @@ public class ProfileUpdateDto {
 
     public void setProfileData(ProfileDataDto profileData) {
         this.profileData = profileData;
+    }
+
+    public String getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 }
 
