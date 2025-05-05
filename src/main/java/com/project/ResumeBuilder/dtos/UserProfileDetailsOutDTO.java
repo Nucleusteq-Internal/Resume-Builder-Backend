@@ -17,5 +17,6 @@ public class UserProfileDetailsOutDTO {
     private String bio;
 
     private String gender;
+    private String empId;
 
 }

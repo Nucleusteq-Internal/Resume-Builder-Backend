@@ -94,4 +94,10 @@ public class UserController {
         List<EmployeeDetailDTO> employeeDetailDTOS = usersService.getEmployees();
         return ResponseEntity.status(HttpStatus.OK).body(employeeDetailDTOS);
     }
+
+    @PostMapping("/upload-excel-data")
+    public ResponseEntity<String> uploadExcelData(@RequestBody @Valid List<BulkUserDto> userList) {
+        usersService.saveUsers(userList);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Users saved successfully");
+    }
 }
