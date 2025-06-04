@@ -139,7 +139,7 @@ resource "aws_secretsmanager_secret" "resume_builder_api_key_secret" {
   tags = var.tags
 }
 
-resource "aws_secretsmanager_secret_version" "cv_parser_auth_secret_version" {
+resource "aws_secretsmanager_secret_version" "resume_builder_api_key_secret_version" {
   secret_id = aws_secretsmanager_secret.resume_builder_api_key_secret.id
   secret_string = jsonencode({
     GROQ_API_KEY = "##SECRET KEY HERE (ADDED MANUALLY)##"
