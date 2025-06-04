@@ -3,7 +3,8 @@ name: "Terraform Operations for Prod"
 on:
   push:
     branches:
-      - dev
+      - branch_name
+      # - dev
       # - feature/infra_and_workflows
     paths:
       - "platforms/infra/**"
