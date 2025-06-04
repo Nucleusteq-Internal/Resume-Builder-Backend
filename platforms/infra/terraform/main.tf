@@ -110,6 +110,7 @@ data "aws_iam_policy_document" "pod_policy_document" {
     ]
     resources = [
       "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:resume_builder_user_${var.tags.environment}_password*",
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:resume_builder_${var.tags.environment}_groq_api_key*"
     ]
   }
 }
@@ -131,4 +132,17 @@ resource "aws_iam_policy" "pod_policy" {
 resource "aws_iam_role_policy_attachment" "pod_policy_attachment" {
   role       = aws_iam_role.pod_role.name
   policy_arn = aws_iam_policy.pod_policy.arn
+}
+
+resource "aws_secretsmanager_secret" "resume_builder_api_key_secret" {
+  name = "resume_builder_${var.tags.environment}_groq_api_key"
+  tags = var.tags
+}
+
+resource "aws_secretsmanager_secret_version" "cv_parser_auth_secret_version" {
+  secret_id = aws_secretsmanager_secret.resume_builder_api_key_secret.id
+  secret_string = jsonencode({
+    GROQ_API_KEY = "##SECRET KEY HERE (ADDED MANUALLY)##"
+  })
+  depends_on = [aws_secretsmanager_secret.resume_builder_api_key_secret]
 }
